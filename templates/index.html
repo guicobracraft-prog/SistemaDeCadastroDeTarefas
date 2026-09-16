@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Tarefas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Lista de Tarefas</h1>
+        <p>Organize suas tarefas por prioridade, status e prazo.</p>
+    </header>
+
+    <main>
+
+        <!-- Formulário -->
+        <section>
+            <form action="{{ url_for('adicionar') }}" method="POST">
+
+                <label>
+                    Tarefa
+                    <input type="text" name="tarefa" placeholder="Ex: Estudar Flask" required>
+                </label>
+
+                <div class="form-row">
+                    <label>
+                        Tipo
+                        <select name="tipo">
+                            <option value="urgente">🔴 Urgente</option>
+                            <option value="normal" selected>🟡 Normal</option>
+                            <option value="baixa">🟢 Baixa</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Condição
+                        <select name="condicao">
+                            <option value="pendente" selected>Pendente</option>
+                            <option value="fazendo">Fazendo</option>
+                            <option value="concluida">Concluída</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label>
+                    Prazo
+                    <input type="date" name="prazo">
+                </label>
+
+                <button type="submit">Adicionar</button>
+            </form>
+        </section>
+
+        <!-- Lista -->
+        <section class="task-list">
+            {% if tarefas %}
+                {% for tarefa in tarefas %}
+                    <article class="task {{ 'completed' if tarefa.condicao == 'concluida' }}">
+
+                        <div>
+                            <h3>{{ tarefa.nome }}</h3>
+                            <p>
+                                <span class="badge tipo-{{ tarefa.tipo }}">{{ tarefa.tipo }}</span>
+                                <span class="badge status-{{ tarefa.condicao }}">{{ tarefa.condicao }}</span>
+                                {% if tarefa.prazo %}
+                                    <span class="badge prazo {{ 'atrasada' if tarefa.prazo < hoje and tarefa.condicao != 'concluida' }}">
+                                        📅 {{ tarefa.prazo }}
+                                    </span>
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <div class="task-actions">
+                            {% if tarefa.condicao != "concluida" %}
+                                <a class="button button-secondary"
+                                   href="{{ url_for('concluir', id_tarefa=tarefa.id) }}">
+                                   ✅ Concluir
+                                </a>
+                            {% endif %}
+                            <a class="button button-danger"
+                               href="{{ url_for('excluir', id_tarefa=tarefa.id) }}">
+                               🗑️ Excluir
+                            </a>
+                        </div>
+
+                    </article>
+                {% endfor %}
+            {% else %}
+                <p class="empty-state">Nenhuma tarefa ainda. Adicione a primeira acima 👆</p>
+            {% endif %}
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Minhas Tarefas &copy; 2026</p>
+    </footer>
+
+</body>
+</html>
