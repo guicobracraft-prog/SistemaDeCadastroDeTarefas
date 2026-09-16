@@ -42,7 +42,7 @@ Prazos vencidos aparecem com **fundo vermelho**.
 
 1. Clone o repositório:
 
-   git clone https://github.com/SEU-USUARIO/SistemaDeCadastroDeTarefas.git
+   git clone https://github.com/guicobracraft-prog/SistemaDeCadastroDeTarefas.git
 
 2. (Opcional, mas recomendado) Crie um ambiente virtual:
 
