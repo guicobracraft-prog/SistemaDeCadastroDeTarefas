@@ -63,10 +63,9 @@ Prazos vencidos aparecem com **fundo vermelho**.
 
    http://127.0.0.1:5000
 
----
-
 ## 📁 Estrutura do projeto
 
+```
 SistemaDeCadastroDeTarefas/
 ├── app.py                 # Aplicação Flask (rotas e lógica)
 ├── tarefas.json           # Banco de dados local (gerado automaticamente)
@@ -76,8 +75,7 @@ SistemaDeCadastroDeTarefas/
 │   └── style.css          # Estilos da aplicação
 ├── .gitignore
 └── README.md
-
----
+```
 
 ## 🧠 Como funciona
 
